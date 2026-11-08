@@ -57,6 +57,8 @@ El docente puede:
 
 Los archivos se almacenan localmente y se consultan offline cuando están disponibles. No se interpreta su contenido automáticamente en el MVP.
 
+**Alcance en el MVP:** la planificación anual queda fuera de la primera versión (ni redactada ni adjunta). El docente consulta la que armó por fuera. El docente considera más práctico cargar un archivo que redactarla en la app, y se prevé implementarlo en versiones futuras. (Ver [DECISIONS/0011](DECISIONS/0011-alcance-del-mvp.md).)
+
 ### 3.3 Organización pedagógica
 
 Jerarquía: **Curso → Unidad → Secuencia de clases → Clases individuales.**
@@ -94,9 +96,9 @@ Módulo independiente del de asistencia, que usa la nómina del curso.
 
 - Trabajos prácticos y evaluaciones son **una misma entidad: la actividad evaluable**, visibles en la misma ventana. (Ver [DECISIONS/0001](DECISIONS/0001-actividad-evaluable-unica.md).)
 - La actividad pertenece a un curso.
-- Por cada estudiante y actividad se registra un **estado** y una **calificación**.
-  - Estados: **Sin completar** (inicial), **Entregado/realizado**, **No entregado/realizado**. El docente los asigna cuando quiere.
-  - Calificación libre: numérica, de texto o símbolos.
+- La actividad tiene un **título** (ejemplos: "Trabajo práctico 2: Conflicto", "Evaluación final de Matemática"), un **tipo** (trabajo práctico, evaluación u otro, a elección del docente) y un espacio donde redactar las **consignas**, que es su único campo de texto. No tiene fecha de entrega o realización por ahora.
+- Por cada estudiante y actividad se registra una **calificación libre** (numérica, de texto o símbolos). Una actividad sin calificación cargada se ve como sin calificar.
+- Los estados de entrega (Sin completar, Entregado/realizado, No entregado/realizado) están definidos pero **quedan fuera del MVP**: la primera versión se dedica a la asignación de la calificación.
 - En el MVP no hay cálculo de notas ni promedios. Las actividades no tienen peso y sus calificaciones no se vinculan entre sí: el docente califica cada una como considere mejor. Las opciones de calificación que ofrecerá la app se definirán más adelante.
 - En el MVP **no hay vínculo** entre actividades evaluables y la planificación (unidades, secuencias, clases); el docente establece esa relación por su cuenta. Podría agregarse en futuras versiones. (Ver [DECISIONS/0003](DECISIONS/0003-sin-vinculo-actividades-planificacion.md).)
 - Estados más finos ("con demora", "para recuperar") quedan para versiones futuras.
@@ -135,6 +137,24 @@ Complementaria y opcional. En el futuro podrá sugerir objetivos, actividades, r
 - El docente puede agregar o quitar clases de una secuencia después. Quitar una clase de una secuencia la deja libre; no la borra.
 - Es poco frecuente planificar más de una secuencia por adelantado para un mismo curso. Lo frecuente es que se suspendan clases (por ejemplo, por feriado) y haya que pasar lo planificado a la clase siguiente.
 - **Correr lo planificado** es una operación explícita, que el docente dispara desde una clase. Desplaza **una clase hacia adelante** la planificación (actividad, contenido, objetivo y observaciones) de esa clase y de las siguientes, incluso a través del límite entre secuencias. No cambia fechas, horarios ni asistencia. Muestra una vista previa y pide confirmación, y necesita una clase libre al final de la cadena (si no la hay, avisa). Nunca es automática. Sirve para clases suspendidas y para sumar una clase a una secuencia; es la forma de resolver la advertencia ya aprobada de que se está modificando el orden pedagógico. (Ver [DECISIONS/0009](DECISIONS/0009-planificacion-sobre-clases-agendadas.md) y [DECISIONS/0010](DECISIONS/0010-correr-lo-planificado.md).)
+
+### 3.12 Alcance del MVP
+
+La primera versión incluye:
+
+- Instituciones y cursos, con su agenda y clases, incluida la repetición (3.10).
+- Nómina de estudiantes cargada uno por uno y asistencia con porcentaje por estudiante (3.5).
+- Unidades, secuencias y planificación de clases, incluida la operación "correr lo planificado" (3.11).
+- Actividades evaluables con título, tipo, consignas y calificación libre por estudiante (3.6).
+- Navegación con Calendario y lista jerárquica (3.7).
+
+La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-del-mvp.md)):
+
+- Planificación anual, ni redactada ni adjunta. El docente consulta la que armó por fuera. Se prevé implementar la carga de archivos en versiones futuras.
+- Estados de entrega de las actividades, fecha de las actividades y ayudas de calificación.
+- Cálculo de notas, pesos y vínculo entre actividades y planificación.
+- Historial anual, nómina compartida entre cursos, carga de nómina pegando una lista, estado "suspendida" para las clases y calendario de feriados.
+- Sugerencias con IA y sincronización en la nube.
 
 ## 4. Criterios técnicos
 
@@ -179,8 +199,9 @@ GitHub es la fuente de verdad. Documentos previstos: `README.md`, `PROJECT.md`, 
 
 ## 7. Pendientes de definición
 
-- Delimitar el MVP (qué entra y qué queda para después). Bloques definidos: agenda y clases (3.10), nómina y asistencia (3.5) y unidades, secuencias y planificación (3.11). Falta decidir qué entra del resto: actividades evaluables (3.6) y planificación anual (redacción y archivos adjuntos).
-- Definir las opciones de calificación que ofrecerá la app para las actividades evaluables.
+- Detalle de interfaz del porcentaje de asistencia: si se muestra cuántas clases quedaron sin marcar.
+- Evaluar, al investigar el stack, la viabilidad de adjuntar y abrir archivos PDF/DOCX sin conexión, para planificar su incorporación en una versión futura.
+- Ayudas para calificar y estados de entrega: posteriores al MVP.
 - Detalles de UX: primer uso de la app, vista semanal en celular, administración de instituciones.
 - Investigar y validar el stack; diseñar arquitectura y modelo de datos; preparar el roadmap de implementación.
 - Nombre definitivo de la aplicación.
