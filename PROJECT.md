@@ -147,6 +147,7 @@ La primera versión incluye:
 - Unidades, secuencias y planificación de clases, incluida la operación "correr lo planificado" (3.11).
 - Actividades evaluables con título, tipo, consignas y calificación libre por estudiante (3.6).
 - Navegación con Calendario y lista jerárquica (3.7).
+- Un dispositivo por docente: los datos viven en un solo dispositivo (ver [DECISIONS/0012](DECISIONS/0012-un-dispositivo-por-docente.md)).
 
 La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-del-mvp.md)):
 
@@ -154,7 +155,7 @@ La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-
 - Estados de entrega de las actividades, fecha de las actividades y ayudas de calificación.
 - Cálculo de notas, pesos y vínculo entre actividades y planificación.
 - Historial anual, nómina compartida entre cursos, carga de nómina pegando una lista, estado "suspendida" para las clases y calendario de feriados.
-- Sugerencias con IA y sincronización en la nube.
+- Sugerencias con IA, sincronización entre dispositivos o en la nube, y respaldo o exportación de datos.
 
 ## 4. Criterios técnicos
 
@@ -176,6 +177,8 @@ La primera responsabilidad técnica es **investigar y evaluar** esta propuesta, 
 - Posibilidad de sincronización en la nube en el futuro.
 - Seguridad y privacidad.
 - Complejidad de mantenimiento para un desarrollador en formación.
+
+**Estado de la evaluación (2026-11-08):** se hizo una primera exploración con documentación oficial (ver [DECISIONS/0013](DECISIONS/0013-stack-en-evaluacion.md)). La web instalable (PWA) quedó descartada como base por el riesgo de pérdida de datos en iPhone. El candidato principal es Expo / React Native con TypeScript y SQLite local, a validar con una prueba de concepto antes de aprobarlo. Flet (Python) queda como plan B. El responsable está dispuesto a aprender TypeScript y usa el proyecto también para aprender tecnologías nuevas.
 
 Se prefiere un **monolito modular** antes que microservicios innecesarios. No se elige tecnología por popularidad: se fundamenta con documentación oficial actualizada y pruebas cuando corresponda.
 
@@ -199,6 +202,7 @@ GitHub es la fuente de verdad. Documentos previstos: `README.md`, `PROJECT.md`, 
 
 ## 7. Pendientes de definición
 
+- Definir y ejecutar la prueba de concepto del stack (ver DECISIONS/0013).
 - Detalle de interfaz del porcentaje de asistencia: si se muestra cuántas clases quedaron sin marcar.
 - Evaluar, al investigar el stack, la viabilidad de adjuntar y abrir archivos PDF/DOCX sin conexión, para planificar su incorporación en una versión futura.
 - Ayudas para calificar y estados de entrega: posteriores al MVP.
