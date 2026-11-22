@@ -1,21 +1,22 @@
 # Roadmap
 
-**Última actualización:** 2026-11-08 · **Etapa actual:** MVP delimitado; stack en evaluación (primera exploración hecha, falta la prueba de concepto)
+**Última actualización:** 2026-11-22 · **Etapa actual:** MVP delimitado; stack en evaluación (prueba de concepto hecha, falta probar el arranque offline con una versión instalable)
 
 ## Prioridades
 
 - [x] 1. Definir trabajos prácticos y evaluaciones (actividad evaluable única, calificación libre, sin vínculo con la planificación; estados de entrega fuera del MVP).
 - [x] 2. Definir navegación y experiencia general (inicio en calendario semanal + lista jerárquica institución → curso).
 - [x] 3. Delimitar el MVP (ver `PROJECT.md`, 3.12, y `DECISIONS/0011`).
-- [ ] 4. Investigar y validar el stack (local-first/offline, SQLite, PDF/DOCX, compatibilidad Expo/Web, sincronización futura). **En curso:** primera exploración hecha (`DECISIONS/0013`); falta la prueba de concepto.
+- [ ] 4. Investigar y validar el stack (local-first/offline, SQLite, PDF/DOCX, compatibilidad Expo/Web, sincronización futura). En curso: prueba de concepto hecha (`DECISIONS/0014`); falta probar el arranque offline con una versión instalable
 - [ ] 5. Diseñar arquitectura y modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`).
 - [ ] 6. Preparar el roadmap de implementación.
 
 ## Próxima sesión
 
-1. Definir y preparar la prueba de concepto del stack (Expo, TypeScript y SQLite): un programa mínimo que guarde datos en el teléfono, los conserve al cerrar la app y funcione sin conexión. Antes, verificar cómo está disponible Expo Go para el SDK 58 y preparar el entorno.
-2. Empezar con lo básico de TypeScript (el responsable ve cursos en paralelo).
-3. Escribir un README.md propio (el actual es el inicial de GitHub).
+1. Probar el arranque offline desde cero con una versión instalable (APK): investigar el camino más simple, hacerlo y documentar el resultado. Con eso se puede decidir la aprobación del stack.
+2. Guardar el código de la prueba de concepto en el repositorio.
+3. Empezar con lo básico de TypeScript (el responsable ve cursos en paralelo).
+4. Escribir un README.md propio (el actual es el inicial de GitHub).
 
 ## Detalles de UX para resolver al diseñar pantallas
 
