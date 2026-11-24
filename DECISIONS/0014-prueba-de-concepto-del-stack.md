@@ -1,12 +1,12 @@
 # 0014 — Prueba de concepto del stack: resultados
 
-- **Estado:** en evaluación (stack no aprobado todavía; ver "Decisiones parciales")
-- **Fecha:** 2026-11-22
+- **Estado:** prueba de concepto completa; stack pendiente de aprobación (ver "Decisiones parciales")
+- **Fecha:** 2026-11-22 (actualizado el 2026-11-24)
 - **Relacionada con:** 0013 (evaluación del stack), prioridad 4 del ROADMAP
 
 ## Contexto
 
-El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato principal, con Flet como plan B, y pidió una prueba de concepto antes de aprobar nada. Se construyó un proyecto descartable (`poc-stack`) con una pantalla que guarda registros en SQLite, los lista, genera 200 de una vez dentro de una transacción y permite borrarlos. Se probó en un celular Android (con Expo Go) y en un navegador de escritorio.
+El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato principal, con Flet como plan B, y pidió una prueba de concepto antes de aprobar nada. Se construyó un proyecto descartable (`poc-stack`) con una pantalla que guarda registros en SQLite, los lista, genera 200 de una vez dentro de una transacción y permite borrarlos. Se probó en un celular Android (con Expo Go y con una versión instalable) y en un navegador de escritorio.
 
 ## Entorno de la prueba
 
@@ -15,12 +15,14 @@ El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato
 - `expo` ~58.0.24, `expo-status-bar` ~58.0.5, `expo-sqlite` ~58.0.18.
 - Expo Go 58.0.5 en el celular Android.
 - Para la web: `react-dom`, `react-native-web` y `@expo/metro-runtime` (instalados con `npx expo install`) y un `metro.config.js` con soporte para archivos `wasm` y las cabeceras `Cross-Origin-Embedder-Policy: credentialless` y `Cross-Origin-Opener-Policy: same-origin`, como indica la documentación de `expo-sqlite` v58.
+- Para la versión instalable: EAS CLI 27.11.0, cuenta gratuita de Expo y perfil `preview` de `eas.json` (`"distribution": "internal"`).
 
 ## Resultados
 
 - **Corre en Android:** sí, con Expo Go 58.0.5. El ciclo de trabajo (editar, guardar y ver el cambio en el celular sin reinstalar) funcionó.
 - **Persistencia:** los registros guardados siguieron presentes después de cerrar por completo la app y volver a abrirla.
-- **Sin conexión:** con el celular en modo avión y la app ya abierta, se pudieron guardar y leer registros sin problemas. No se probó el arranque desde cero sin conexión (ver "Pendiente de verificar").
+- **Sin conexión, con la app ya abierta:** con el celular en modo avión, se pudieron guardar y leer registros sin problemas.
+- **Arranque offline desde cero (versión instalable):** se generó un APK con EAS Build (perfil `preview`, plan gratuito, una compilación de las 15 mensuales de Android) y se instaló en el celular, con el servidor de desarrollo apagado. Se guardaron registros, se cerró la app, se activó el modo avión y al abrirla sin conexión los registros seguían presentes.
 - **Navegador de escritorio:** funcionó, incluida la persistencia de los registros al recargar la página, con la configuración de Metro descrita arriba.
 - **Rendimiento:** inserción de 200 registros en una transacción, en modo desarrollo.
   - Celular: 239 ms en el primer intento y 157 ms en el tercero.
@@ -33,6 +35,7 @@ El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato
 - Migraciones de la base con `PRAGMA user_version`, ejecutadas en `onInit` de `SQLiteProvider`.
 - Consultas con parámetros (`?`) en lugar de armar el texto de la consulta, para evitar inyecciones SQL.
 - Transacciones (`withTransactionAsync`) para operaciones masivas o que deban guardarse todas o ninguna.
+- Compilación en la nube con EAS Build y distribución interna para probar la app instalada sin servidor de desarrollo.
 
 ## Respuestas a los pendientes del 0013
 
@@ -42,15 +45,16 @@ El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato
 
 ## Decisiones parciales
 
-- Expo / React Native con TypeScript y SQLite local queda **validado como viable para el MVP** en Android y navegador de escritorio, según los criterios probados.
-- **El stack todavía no se aprueba.** Se propone aprobarlo cuando se resuelva el arranque offline desde cero con una versión instalable, que es el único requisito crítico que quedó sin comprobar.
+- Expo / React Native con TypeScript y SQLite local queda **validado como viable para el MVP** en Android y en navegador de escritorio, con los cinco criterios de la prueba cumplidos.
+- **El stack todavía no está aprobado formalmente.** La aprobación corresponde al responsable del producto y puede registrarse en un documento aparte.
 - Se mantiene el plan B (Flet) sin evaluar.
 
 ## Pendiente de verificar
 
-- **Arranque offline desde cero.** En Expo Go el código se descarga desde la computadora de desarrollo cada vez, así que no puede probarse. Requiere una versión instalable (por ejemplo, un APK); falta elegir el camino más simple.
 - **Calendario con muchas clases.** Se midió la escritura y una lista simple, no las vistas diaria, semanal y mensual. Se evaluará al diseñar esas pantallas.
 - **Cifrado de la base.** La base de la prueba no está cifrada. La documentación de `expo-sqlite` indica que SQLCipher no está soportado en Expo Go. Hay que analizarlo antes de guardar nombres de estudiantes en la app real.
+- **Plan gratuito de EAS.** Incluye hasta 15 compilaciones de Android por mes, de baja prioridad; al agotarlas, las nuevas no se habilitan hasta el mes siguiente. Revisar si alcanza durante el desarrollo.
+- **Firma de la app.** La keystore de la prueba la generó y la guarda Expo en la cuenta. Antes de publicar la app real hay que decidir cómo se gestiona y respaldar sus credenciales.
 - **Publicación de la versión web.** Si se publica en un servidor, este también debe enviar las cabeceras `COEP` y `COOP`.
 - **iOS.** No se probó (no se dispone del dispositivo ni de macOS).
 - **PDF y DOCX, y sincronización futura.** Fuera del MVP; no se evaluaron.
@@ -62,3 +66,6 @@ El 0013 dejó a Expo / React Native con TypeScript y SQLite local como candidato
 - https://docs.expo.dev/versions/v58.0.0/sdk/sqlite/
 - https://docs.expo.dev/guides/running-in-the-browser/
 - https://expo.dev/blog/how-to-upgrade-to-sdk-58
+- https://docs.expo.dev/tutorial/eas/configure-development-build/
+- https://docs.expo.dev/tutorial/eas/internal-distribution-builds/
+- https://expo.dev/pricing
