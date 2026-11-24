@@ -1,20 +1,20 @@
 # Roadmap
 
-**Última actualización:** 2026-11-22 · **Etapa actual:** MVP delimitado; stack en evaluación (prueba de concepto hecha, falta probar el arranque offline con una versión instalable)
+**Última actualización:** 2026-11-24 · **Etapa actual:** MVP delimitado; stack aprobado (`DECISIONS/0015`); sigue el diseño de la arquitectura y el modelo de datos
 
 ## Prioridades
 
 - [x] 1. Definir trabajos prácticos y evaluaciones (actividad evaluable única, calificación libre, sin vínculo con la planificación; estados de entrega fuera del MVP).
 - [x] 2. Definir navegación y experiencia general (inicio en calendario semanal + lista jerárquica institución → curso).
 - [x] 3. Delimitar el MVP (ver `PROJECT.md`, 3.12, y `DECISIONS/0011`).
-- [ ] 4. Investigar y validar el stack (local-first/offline, SQLite, PDF/DOCX, compatibilidad Expo/Web, sincronización futura). En curso: prueba de concepto hecha (`DECISIONS/0014`); falta probar el arranque offline con una versión instalable
+- [x] 4. Investigar y validar el stack (local-first/offline, SQLite, PDF/DOCX, compatibilidad Expo/Web, sincronización futura). Completado: prueba de concepto (`DECISIONS/0014`) y aprobación (`DECISIONS/0015`).
 - [ ] 5. Diseñar arquitectura y modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`).
 - [ ] 6. Preparar el roadmap de implementación.
 
 ## Próxima sesión
 
-1. Probar el arranque offline desde cero con una versión instalable (APK): investigar el camino más simple, hacerlo y documentar el resultado. Con eso se puede decidir la aprobación del stack.
-2. Guardar el código de la prueba de concepto en el repositorio.
+1. Guardar el código de la prueba de concepto en el repositorio.
+2. Diseñar la arquitectura y el modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`). Incluye decidir cómo se accede a la base de datos y analizar el cifrado.
 3. Empezar con lo básico de TypeScript (el responsable ve cursos en paralelo).
 4. Escribir un README.md propio (el actual es el inicial de GitHub).
 
