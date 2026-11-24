@@ -1,6 +1,6 @@
 # 0013 — Stack tecnológico: evaluación en curso
 
-- **Estado:** en evaluación (no aprobada)
+- **Estado:** superada por 0015
 - **Fecha:** 2026-11-08
 
 ## Contexto
