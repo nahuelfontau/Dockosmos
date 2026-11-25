@@ -2,8 +2,8 @@
 
 > **Nombre definitivo: pendiente.** LUMEN y KÓSMOS son candidatos explorados; ambos requieren evaluación marcaria antes de considerarse definitivos.
 
-- **Estado:** definición funcional (no se programa ni se cierra la arquitectura hasta completar las definiciones pendientes).
-- **Última actualización:** 2026-11-08
+- Estado: stack aprobado (DECISIONS/0015). Sigue el diseño de la arquitectura y el modelo de datos; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
+- Última actualización: 2026-11-24
 - **Responsable del producto y desarrollo:** Nahuel
 
 Este documento es la fuente de verdad del proyecto. Reúne el objetivo, las decisiones aprobadas, los criterios técnicos, la forma de trabajo y lo pendiente. Cada decisión importante tiene además su registro en [`DECISIONS/`](DECISIONS/).
@@ -148,6 +148,7 @@ La primera versión incluye:
 - Actividades evaluables con título, tipo, consignas y calificación libre por estudiante (3.6).
 - Navegación con Calendario y lista jerárquica (3.7).
 - Un dispositivo por docente: los datos viven en un solo dispositivo (ver [DECISIONS/0012](DECISIONS/0012-un-dispositivo-por-docente.md)).
+- Limitación conocida: sin respaldo ni exportación, y el celular y el navegador no comparten datos. Si el docente desinstala la app, cambia de dispositivo o borra los datos del navegador, pierde su información (ver [DECISIONS/0016](DECISIONS/0016-limitacion-sin-respaldo-en-el-mvp.md)).
 
 La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-del-mvp.md)):
 
@@ -159,14 +160,17 @@ La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-
 
 ## 4. Criterios técnicos
 
-Propuesta inicial de stack, **todavía no aprobada**:
+Stack aprobado para el MVP (ver DECISIONS/0015, basada en la prueba de concepto de DECISIONS/0014):
 
 - Frontend: React Native, Expo y TypeScript.
 - Compatibilidad web: React Native Web / Expo Web.
-- Persistencia local: SQLite.
+- Persistencia local: SQLite (expo-sqlite).
+
+Propuesto para más adelante, todavía no aprobado:
+
 - Backend futuro: Python, FastAPI y PostgreSQL.
 - ORM y migraciones: SQLAlchemy y Alembic.
-- Calidad: Git, GitHub, Pytest, testing frontend, Docker y GitHub Actions.
+- Calidad: Git, GitHub, Pytest, testing frontend, Docker y GitHub Actions. Las herramientas de prueba del frontend en TypeScript todavía no se eligieron.
 
 La primera responsabilidad técnica es **investigar y evaluar** esta propuesta, no aceptarla automáticamente. Puntos de atención:
 
@@ -178,9 +182,9 @@ La primera responsabilidad técnica es **investigar y evaluar** esta propuesta, 
 - Seguridad y privacidad.
 - Complejidad de mantenimiento para un desarrollador en formación.
 
-**Estado de la evaluación (2026-11-08):** se hizo una primera exploración con documentación oficial (ver [DECISIONS/0013](DECISIONS/0013-stack-en-evaluacion.md)). La web instalable (PWA) quedó descartada como base por el riesgo de pérdida de datos en iPhone. El candidato principal es Expo / React Native con TypeScript y SQLite local, a validar con una prueba de concepto antes de aprobarlo. Flet (Python) queda como plan B. El responsable está dispuesto a aprender TypeScript y usa el proyecto también para aprender tecnologías nuevas.
+Resultado de la evaluación (2026-11-24): la prueba de concepto cumplió los cinco criterios (DECISIONS/0014) y se aprobó el stack para el MVP (DECISIONS/0015). La web instalable (PWA) quedó descartada como base por el riesgo de pérdida de datos en iPhone. Flet (Python) queda como alternativa solo si TypeScript resultara un obstáculo grande. El responsable usa el proyecto también para aprender tecnologías nuevas.
 
-Se prefiere un **monolito modular** antes que microservicios innecesarios. No se elige tecnología por popularidad: se fundamenta con documentación oficial actualizada y pruebas cuando corresponda.
+Condiciones de seguimiento (detalle en DECISIONS/0015): analizar el cifrado de la base antes de guardar nombres de estudiantes, definir cómo se accede a la base de datos y probar el calendario con muchas clases.
 
 ## 5. Forma de trabajo
 
@@ -202,10 +206,12 @@ GitHub es la fuente de verdad. Documentos previstos: `README.md`, `PROJECT.md`, 
 
 ## 7. Pendientes de definición
 
-- Definir y ejecutar la prueba de concepto del stack (ver DECISIONS/0013).
 - Detalle de interfaz del porcentaje de asistencia: si se muestra cuántas clases quedaron sin marcar.
-- Evaluar, al investigar el stack, la viabilidad de adjuntar y abrir archivos PDF/DOCX sin conexión, para planificar su incorporación en una versión futura.
+- Evaluar la viabilidad de adjuntar y abrir archivos PDF/DOCX sin conexión, para planificar su incorporación en una versión futura. No se evaluó en la prueba de concepto.
 - Ayudas para calificar y estados de entrega: posteriores al MVP.
 - Detalles de UX: primer uso de la app, vista semanal en celular, administración de instituciones.
-- Investigar y validar el stack; diseñar arquitectura y modelo de datos; preparar el roadmap de implementación.
+- Diseñar arquitectura y modelo de datos
+- Preparar el roadmap de implementación.
 - Nombre definitivo de la aplicación.
+- Cifrado de la base de datos y forma de acceso a los datos (ver DECISIONS/0015).
+- Límites del plan gratuito de EAS y gestión de la firma de la app antes de publicar.
