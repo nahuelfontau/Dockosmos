@@ -2,8 +2,8 @@
 
 > **Nombre definitivo: pendiente.** LUMEN y KÓSMOS son candidatos explorados; ambos requieren evaluación marcaria antes de considerarse definitivos.
 
-- Estado: stack aprobado (DECISIONS/0015). Sigue el diseño de la arquitectura y el modelo de datos; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
-- Última actualización: 2026-11-24
+- **Estado:** stack aprobado (DECISIONS/0015). Sigue el diseño de la arquitectura y el modelo de datos; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
+- **Última actualización:** 2026-11-24
 - **Responsable del producto y desarrollo:** Nahuel
 
 Este documento es la fuente de verdad del proyecto. Reúne el objetivo, las decisiones aprobadas, los criterios técnicos, la forma de trabajo y lo pendiente. Cada decisión importante tiene además su registro en [`DECISIONS/`](DECISIONS/).
@@ -148,7 +148,6 @@ La primera versión incluye:
 - Actividades evaluables con título, tipo, consignas y calificación libre por estudiante (3.6).
 - Navegación con Calendario y lista jerárquica (3.7).
 - Un dispositivo por docente: los datos viven en un solo dispositivo (ver [DECISIONS/0012](DECISIONS/0012-un-dispositivo-por-docente.md)).
-- Limitación conocida: sin respaldo ni exportación, y el celular y el navegador no comparten datos. Si el docente desinstala la app, cambia de dispositivo o borra los datos del navegador, pierde su información (ver [DECISIONS/0016](DECISIONS/0016-limitacion-sin-respaldo-en-el-mvp.md)).
 
 La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-del-mvp.md)):
 
@@ -158,6 +157,8 @@ La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-
 - Historial anual, nómina compartida entre cursos, carga de nómina pegando una lista, estado "suspendida" para las clases y calendario de feriados.
 - Sugerencias con IA, sincronización entre dispositivos o en la nube, y respaldo o exportación de datos.
 
+**Limitación conocida:** sin respaldo ni exportación, y el celular y el navegador no comparten datos. Si el docente desinstala la app, cambia de dispositivo o borra los datos del navegador, pierde su información (ver [DECISIONS/0016](DECISIONS/0016-limitacion-sin-respaldo-en-el-mvp.md)).
+
 ## 4. Criterios técnicos
 
 Stack aprobado para el MVP (ver DECISIONS/0015, basada en la prueba de concepto de DECISIONS/0014):
@@ -165,14 +166,15 @@ Stack aprobado para el MVP (ver DECISIONS/0015, basada en la prueba de concepto 
 - Frontend: React Native, Expo y TypeScript.
 - Compatibilidad web: React Native Web / Expo Web.
 - Persistencia local: SQLite (expo-sqlite).
+- Control de versiones: Git y GitHub.
 
 Propuesto para más adelante, todavía no aprobado:
 
 - Backend futuro: Python, FastAPI y PostgreSQL.
 - ORM y migraciones: SQLAlchemy y Alembic.
-- Calidad: Git, GitHub, Pytest, testing frontend, Docker y GitHub Actions. Las herramientas de prueba del frontend en TypeScript todavía no se eligieron.
+- Calidad: Pytest, testing frontend, Docker y GitHub Actions. Las herramientas de prueba del frontend en TypeScript todavía no se eligieron.
 
-La primera responsabilidad técnica es **investigar y evaluar** esta propuesta, no aceptarla automáticamente. Puntos de atención:
+Para lo que sigue en evaluación, la responsabilidad técnica es **investigar y evaluar** cada propuesta, no aceptarla automáticamente. Puntos de atención:
 
 - Arquitectura local-first y funcionamiento offline.
 - Persistencia y consistencia de datos.
