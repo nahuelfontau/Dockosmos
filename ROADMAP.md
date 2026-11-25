@@ -1,6 +1,6 @@
 # Roadmap
 
-**Última actualización:** 2026-11-24 · **Etapa actual:** MVP delimitado; stack aprobado (`DECISIONS/0015`); sigue el diseño de la arquitectura y el modelo de datos
+**Última actualización:** 2026-11-25 · **Etapa actual:** MVP delimitado; stack aprobado (`DECISIONS/0015`); sigue el diseño de la arquitectura y el modelo de datos
 
 ## Prioridades
 
@@ -13,7 +13,7 @@
 
 ## Próxima sesión
 
-1. Guardar el código de la prueba de concepto en el repositorio.
+1. ~~Guardar el código de la prueba de concepto en el repositorio.~~ Hecho el 2026-11-25 en prototypes/poc-stack.
 2. Diseñar la arquitectura y el modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`). Incluye decidir cómo se accede a la base de datos, analizar el cifrado y revisar la limitación de datos sin respaldo (`DECISIONS/0016`).
 3. Empezar con lo básico de TypeScript (el responsable ve cursos en paralelo).
 4. Escribir un README.md propio (el actual es el inicial de GitHub).
