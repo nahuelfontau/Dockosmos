@@ -2,8 +2,8 @@
 
 > **Nombre definitivo: pendiente.** LUMEN y KÓSMOS son candidatos explorados; ambos requieren evaluación marcaria antes de considerarse definitivos.
 
-- **Estado:** stack aprobado (DECISIONS/0015). Sigue el diseño de la arquitectura y el modelo de datos; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
-- **Última actualización:** 2026-11-24
+- **Estado:** stack aprobado (DECISIONS/0015) y orden pedagógico definido (DECISIONS/0017, propuesta). Sigue el diseño del modelo de datos (tablas) y de la arquitectura; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
+- **Última actualización:** 2026-11-26
 - **Responsable del producto y desarrollo:** Nahuel
 
 Este documento es la fuente de verdad del proyecto. Reúne el objetivo, las decisiones aprobadas, los criterios técnicos, la forma de trabajo y lo pendiente. Cada decisión importante tiene además su registro en [`DECISIONS/`](DECISIONS/).
@@ -63,10 +63,10 @@ Los archivos se almacenan localmente y se consultan offline cuando están dispon
 
 Jerarquía: **Curso → Unidad → Secuencia de clases → Clases individuales.**
 
-- Cada unidad puede tener una o varias secuencias, que se desarrollan una después de otra (no en paralelo).
+- La **secuencia es un agrupamiento opcional** de clases dentro de una unidad: hay docentes que no la usan o que usan la unidad como secuencia. Una unidad puede tener una o varias, que se desarrollan una después de otra (no en paralelo); si una operación las deja entrelazadas, la app avisa y lo permite. (Ver [DECISIONS/0017](DECISIONS/0017-orden-pedagogico-derivado-de-fechas.md).)
 - El docente elige libremente el nombre de cada secuencia; no hay categorías obligatorias (contenido vs. tema).
-- No hay cantidad fija de clases por secuencia; se pueden agregar, quitar, editar y reordenar.
-- Cada clase tiene: fecha, horario, unidad, secuencia, contenido, objetivo, actividad y observaciones. La clase se crea al agendarla, con la planificación en blanco: unidad y secuencia son opcionales hasta que el docente la planifica (ver 3.10).
+- No hay cantidad fija de clases por secuencia; se pueden agregar, quitar y editar. Reordenar significa mover la planificación entre clases, nunca las fechas (ver 3.4).
+- Cada clase tiene: fecha, horario, unidad, secuencia, contenido, objetivo, actividad y observaciones. La clase se crea al agendarla, con la planificación en blanco: unidad y secuencia son opcionales hasta que el docente la planifica (ver 3.10). Si la clase tiene secuencia, esa secuencia pertenece a la misma unidad que la clase.
 - Recursos y evaluaciones pueden registrarse inicialmente en observaciones.
 
 ### 3.4 Orden pedagógico y calendario
@@ -77,6 +77,13 @@ Se distinguen dos conceptos:
 - **Programación temporal:** fecha y horario concretos de cada clase.
 
 **Modificar el orden pedagógico nunca cambia automáticamente fechas u horarios** (agregar, eliminar o reordenar clases, o reorganizar secuencias). Si se agrega una clase a una secuencia ya finalizada y hay secuencias posteriores, la app advierte que se modifica el orden pedagógico y permite reorganizarlas; fechas y horarios permanecen intactos. La reprogramación temporal es una operación explícita y separada.
+
+**Cómo se guarda el orden ([DECISIONS/0017](DECISIONS/0017-orden-pedagogico-derivado-de-fechas.md)).** La fecha y el horario son solo una ubicación en el calendario: indican cuándo se hará qué. Lo que se mueve entre esas ubicaciones es la planificación.
+
+- El orden de las clases dentro de una unidad o secuencia **se lee de las fechas**; no se guarda un número de posición. Lo mismo vale para el orden de las secuencias dentro de una unidad y de las unidades dentro de un curso, y para el rango de fechas de una secuencia o unidad y la numeración de las clases: son datos calculados, no almacenados.
+- En la clase, la **agenda** (fecha, horario y asistencia) no se mueve al reorganizar; la **planificación** (actividad, contenido, objetivo y observaciones) sí.
+- La pertenencia de una clase a una unidad o secuencia solo la cambia el docente, de forma explícita.
+- Toda operación que desplaza lo planificado lo lleva hacia adelante, sin eliminarlo, muestra una vista previa, pide confirmación y se guarda completa o no se guarda.
 
 El calendario tiene vistas diaria, semanal y mensual. Cada clase se programa individualmente, sin horarios habituales obligatorios. Se puede editar una clase desde el calendario y los cambios se reflejan en toda la app.
 
@@ -125,18 +132,20 @@ Complementaria y opcional. En el futuro podrá sugerir objetivos, actividades, r
 - Repetir crea **clases concretas e independientes**, una por fecha. Editar, mover o borrar una no afecta a las demás. No se guarda una regla de recurrencia. (Ver [DECISIONS/0007](DECISIONS/0007-repeticion-clases-concretas.md).)
 - "Todo el año" genera clases también en semanas sin actividad (receso invernal, diciembre). En el MVP el docente las borra una por una, con confirmación, y no hay calendario de feriados. Se revisará más adelante.
 - En el calendario se ve primero el curso en su lugar de la agenda, no la planificación. La planificación se ve o se crea al ingresar al día.
-- Cada clase nace con la planificación en blanco. Más tarde se la ubica en una unidad y una secuencia (el detalle de la interfaz se define al diseñar pantallas). "Actividad" es el texto libre donde el docente redacta lo que se desarrollará ese día; contenido, objetivo y observaciones siguen siendo campos de la clase.
-- Las unidades engloban una o varias secuencias, y cada secuencia tiene sus clases sucesivas. Unidades y secuencias son elementos propios (no texto dentro de la clase), porque el orden pedagógico depende de ello.
+- Cada clase nace con la planificación en blanco. Más tarde se la ubica en una unidad y, opcionalmente, en una secuencia (el detalle de la interfaz se define al diseñar pantallas). "Actividad" es el texto libre donde el docente redacta lo que se desarrollará ese día; contenido, objetivo y observaciones siguen siendo campos de la clase.
+- Las unidades agrupan clases y, dentro de ellas, las secuencias son un agrupamiento opcional de clases sucesivas. Unidades y secuencias son elementos propios (no texto dentro de la clase), porque el orden pedagógico depende de ello.
 - Asistencia y planificación son independientes: se toma asistencia en cualquier clase agendada, esté planificada o no. (Ver [DECISIONS/0006](DECISIONS/0006-clase-agendada-planificacion-posterior.md).)
 
 ### 3.11 Unidades, secuencias y planificación (MVP)
 
 - La estructura de unidades y secuencias se puede planificar **desde el curso** (viendo las unidades a impartir) y **desde el día de la clase**. Ambos accesos llevan a la misma ventana de planificación.
 - La planificación trabaja **solo con clases ya agendadas**. Como al agendar un curso con repetición ya existen las clases del año, el docente puede armar una secuencia con anticipación proyectando una cantidad determinada de clases consecutivas del curso. No existen clases sin fecha.
-- Al proyectar, el orden pedagógico inicial coincide con el orden de las fechas; después son independientes, y reordenar nunca cambia fechas.
-- El docente puede agregar o quitar clases de una secuencia después. Quitar una clase de una secuencia la deja libre; no la borra.
+- El orden pedagógico se lee de las fechas (no hay un número de posición aparte), y reordenar nunca cambia fechas: lo que se mueve es la planificación entre clases (ver 3.4).
+- El docente puede agregar o quitar clases de una secuencia después. Quitar una clase de una secuencia la deja sin secuencia, con su texto intacto; no la borra.
 - Es poco frecuente planificar más de una secuencia por adelantado para un mismo curso. Lo frecuente es que se suspendan clases (por ejemplo, por feriado) y haya que pasar lo planificado a la clase siguiente.
-- **Correr lo planificado** es una operación explícita, que el docente dispara desde una clase. Desplaza **una clase hacia adelante** la planificación (actividad, contenido, objetivo y observaciones) de esa clase y de las siguientes, incluso a través del límite entre secuencias. No cambia fechas, horarios ni asistencia. Muestra una vista previa y pide confirmación, y necesita una clase libre al final de la cadena (si no la hay, avisa). Nunca es automática. Sirve para clases suspendidas y para sumar una clase a una secuencia; es la forma de resolver la advertencia ya aprobada de que se está modificando el orden pedagógico. (Ver [DECISIONS/0009](DECISIONS/0009-planificacion-sobre-clases-agendadas.md) y [DECISIONS/0010](DECISIONS/0010-correr-lo-planificado.md).)
+- **Correr lo planificado** es una operación explícita, que el docente dispara desde una clase. Desplaza **una clase hacia adelante** la planificación (actividad, contenido, objetivo y observaciones) de esa clase y de las siguientes, incluso a través del límite entre secuencias. No cambia fechas, horarios, asistencia ni la pertenencia de las clases a unidades y secuencias. Muestra una vista previa y pide confirmación, y necesita una clase sin nada redactado al final de la cadena (si no la hay, avisa). Nunca es automática. Sirve para clases suspendidas y para sumar una clase a una secuencia; es la forma de resolver la advertencia ya aprobada de que se está modificando el orden pedagógico. (Ver [DECISIONS/0009](DECISIONS/0009-planificacion-sobre-clases-agendadas.md) y [DECISIONS/0010](DECISIONS/0010-correr-lo-planificado.md).)
+- **Otras operaciones de orden** (descritas en [DECISIONS/0017](DECISIONS/0017-orden-pedagogico-derivado-de-fechas.md); está por decidir cuáles entran al MVP): **intercambiar** los cuatro textos de dos clases, y **mover una secuencia o una unidad entera**, que lleva sus clases a otras fechas y desplaza lo que estaba ahí hacia adelante, con vista previa y confirmación. Ninguna cambia fechas, horarios ni asistencia.
+- **Toda unidad y toda secuencia incluye al menos una clase.** Una unidad nueva va a la primera clase vacía (sin nada redactado y sin unidad ni secuencia asignadas) posterior a la última clase planificada del curso, y si se le suman clases desplaza a las siguientes. Si una secuencia se queda sin clases, pasa a incluir la primera clase de su unidad que no tenga nada redactado ni pertenezca a otra secuencia; si no existe, la app ofrece sumar una clase a la unidad o eliminar la secuencia vacía. Si no hay clase disponible, avisa.
 
 ### 3.12 Alcance del MVP
 
@@ -212,7 +221,9 @@ GitHub es la fuente de verdad. Documentos previstos: `README.md`, `PROJECT.md`, 
 - Evaluar la viabilidad de adjuntar y abrir archivos PDF/DOCX sin conexión, para planificar su incorporación en una versión futura. No se evaluó en la prueba de concepto.
 - Ayudas para calificar y estados de entrega: posteriores al MVP.
 - Detalles de UX: primer uso de la app, vista semanal en celular, administración de instituciones.
-- Diseñar arquitectura y modelo de datos
+- Diseñar el modelo de datos (tablas) y la arquitectura. El modelo conceptual y el orden pedagógico ya están definidos (DECISIONS/0017).
+- Aprobar el DECISIONS/0017: confirmar la definición de clase vacía para las secuencias y decidir si "intercambiar dos clases" y "mover secuencias o unidades enteras" entran al MVP.
+- Detalles de interfaz del orden pedagógico: avisos (secuencias entrelazadas, clase que pasa a otra unidad), vista previa de los desplazamientos y qué ocurre con el motivo de una suspensión anotado en observaciones.
 - Preparar el roadmap de implementación.
 - Nombre definitivo de la aplicación.
 - Cifrado de la base de datos y forma de acceso a los datos (ver DECISIONS/0015).
