@@ -2,7 +2,7 @@
 
 > **Nombre definitivo: pendiente.** LUMEN y KÓSMOS son candidatos explorados; ambos requieren evaluación marcaria antes de considerarse definitivos.
 
-- **Estado:** stack aprobado (DECISIONS/0015) y orden pedagógico definido (DECISIONS/0017, propuesta). Sigue el diseño del modelo de datos (tablas) y de la arquitectura; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
+- **Estado:** stack aprobado (DECISIONS/0015) y orden pedagógico definido (DECISIONS/0017). Sigue el diseño del modelo de datos (tablas) y de la arquitectura; el código del producto no se escribe hasta cerrarlos (la prueba de concepto fue descartable).
 - **Última actualización:** 2026-11-26
 - **Responsable del producto y desarrollo:** Nahuel
 
@@ -144,7 +144,8 @@ Complementaria y opcional. En el futuro podrá sugerir objetivos, actividades, r
 - El docente puede agregar o quitar clases de una secuencia después. Quitar una clase de una secuencia la deja sin secuencia, con su texto intacto; no la borra.
 - Es poco frecuente planificar más de una secuencia por adelantado para un mismo curso. Lo frecuente es que se suspendan clases (por ejemplo, por feriado) y haya que pasar lo planificado a la clase siguiente.
 - **Correr lo planificado** es una operación explícita, que el docente dispara desde una clase. Desplaza **una clase hacia adelante** la planificación (actividad, contenido, objetivo y observaciones) de esa clase y de las siguientes, incluso a través del límite entre secuencias. No cambia fechas, horarios, asistencia ni la pertenencia de las clases a unidades y secuencias. Muestra una vista previa y pide confirmación, y necesita una clase sin nada redactado al final de la cadena (si no la hay, avisa). Nunca es automática. Sirve para clases suspendidas y para sumar una clase a una secuencia; es la forma de resolver la advertencia ya aprobada de que se está modificando el orden pedagógico. (Ver [DECISIONS/0009](DECISIONS/0009-planificacion-sobre-clases-agendadas.md) y [DECISIONS/0010](DECISIONS/0010-correr-lo-planificado.md).)
-- **Otras operaciones de orden** (descritas en [DECISIONS/0017](DECISIONS/0017-orden-pedagogico-derivado-de-fechas.md); está por decidir cuáles entran al MVP): **intercambiar** los cuatro textos de dos clases, y **mover una secuencia o una unidad entera**, que lleva sus clases a otras fechas y desplaza lo que estaba ahí hacia adelante, con vista previa y confirmación. Ninguna cambia fechas, horarios ni asistencia.
+- **Intercambiar dos clases** (entra al MVP): intercambia los cuatro textos de ambas, aun si pertenecen a secuencias distintas. No cambia fechas, horarios, asistencia ni pertenencia. (Ver [DECISIONS/0017](DECISIONS/0017-orden-pedagogico-derivado-de-fechas.md).)
+- **Desplazar hacia adelante al sumar clases** a una unidad o secuencia (entra al MVP): las clases, secuencias o unidades siguientes pasan a fechas posteriores, con vista previa y confirmación. **Mover una secuencia o una unidad entera** a un lugar cualquiera del calendario queda para después del MVP; el modelo de datos ya lo soporta.
 - **Toda unidad y toda secuencia incluye al menos una clase.** Una unidad nueva va a la primera clase vacía (sin nada redactado y sin unidad ni secuencia asignadas) posterior a la última clase planificada del curso, y si se le suman clases desplaza a las siguientes. Si una secuencia se queda sin clases, pasa a incluir la primera clase de su unidad que no tenga nada redactado ni pertenezca a otra secuencia; si no existe, la app ofrece sumar una clase a la unidad o eliminar la secuencia vacía. Si no hay clase disponible, avisa.
 
 ### 3.12 Alcance del MVP
@@ -153,7 +154,7 @@ La primera versión incluye:
 
 - Instituciones y cursos, con su agenda y clases, incluida la repetición (3.10).
 - Nómina de estudiantes cargada uno por uno y asistencia con porcentaje por estudiante (3.5).
-- Unidades, secuencias y planificación de clases, incluida la operación "correr lo planificado" (3.11).
+- Unidades, secuencias y planificación de clases, incluidas las operaciones "correr lo planificado", "intercambiar dos clases" y el desplazamiento hacia adelante al sumar clases (3.11).
 - Actividades evaluables con título, tipo, consignas y calificación libre por estudiante (3.6).
 - Navegación con Calendario y lista jerárquica (3.7).
 - Un dispositivo por docente: los datos viven en un solo dispositivo (ver [DECISIONS/0012](DECISIONS/0012-un-dispositivo-por-docente.md)).
@@ -164,6 +165,7 @@ La primera versión **no** incluye (ver [DECISIONS/0011](DECISIONS/0011-alcance-
 - Estados de entrega de las actividades, fecha de las actividades y ayudas de calificación.
 - Cálculo de notas, pesos y vínculo entre actividades y planificación.
 - Historial anual, nómina compartida entre cursos, carga de nómina pegando una lista, estado "suspendida" para las clases y calendario de feriados.
+- Mover una secuencia o una unidad entera a un lugar cualquiera del calendario.
 - Sugerencias con IA, sincronización entre dispositivos o en la nube, y respaldo o exportación de datos.
 
 **Limitación conocida:** sin respaldo ni exportación, y el celular y el navegador no comparten datos. Si el docente desinstala la app, cambia de dispositivo o borra los datos del navegador, pierde su información (ver [DECISIONS/0016](DECISIONS/0016-limitacion-sin-respaldo-en-el-mvp.md)).
@@ -222,7 +224,6 @@ GitHub es la fuente de verdad. Documentos previstos: `README.md`, `PROJECT.md`, 
 - Ayudas para calificar y estados de entrega: posteriores al MVP.
 - Detalles de UX: primer uso de la app, vista semanal en celular, administración de instituciones.
 - Diseñar el modelo de datos (tablas) y la arquitectura. El modelo conceptual y el orden pedagógico ya están definidos (DECISIONS/0017).
-- Aprobar el DECISIONS/0017: confirmar la definición de clase vacía para las secuencias y decidir si "intercambiar dos clases" y "mover secuencias o unidades enteras" entran al MVP.
 - Detalles de interfaz del orden pedagógico: avisos (secuencias entrelazadas, clase que pasa a otra unidad), vista previa de los desplazamientos y qué ocurre con el motivo de una suspensión anotado en observaciones.
 - Preparar el roadmap de implementación.
 - Nombre definitivo de la aplicación.

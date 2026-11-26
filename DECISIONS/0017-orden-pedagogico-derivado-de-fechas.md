@@ -1,6 +1,6 @@
 # 0017 — Orden pedagógico derivado de las fechas
 
-- **Estado:** propuesta (pendiente de revisión y aprobación del responsable del producto)
+- **Estado:** aprobada (por el responsable del producto, el 2026-11-26)
 - **Fecha:** 2026-11-26
 - **Relacionada con:** 0006 (clase agendada, planificación posterior), 0007 (repetición de clases concretas), 0009 (planificación sobre clases agendadas), 0010 (correr lo planificado), 0015 (aprobación del stack). Secciones 3.3, 3.4, 3.8, 3.10 y 3.11 de `PROJECT.md`.
 
@@ -45,6 +45,7 @@ La fecha y el horario son solo una **ubicación en el calendario**: indican cuá
 
 - La pertenencia solo la cambia el docente, de forma explícita.
 - Lo desplazado va **hacia adelante**, sin eliminarse. Antes de aplicar un desplazamiento se muestra una **vista previa** y se pide **confirmación**; nunca es automático.
+- **Alcance en el MVP:** entran "correr lo planificado", "intercambiar dos clases" y el desplazamiento hacia adelante al sumar clases a una unidad o secuencia. **Mover una secuencia o una unidad entera a un lugar cualquiera del calendario queda para después del MVP**; el modelo de datos ya lo soporta.
 - Cada operación se ejecuta en una **transacción**: se guarda completa o no se guarda.
 - Si una operación deja secuencias entrelazadas (rangos de fechas que se solapan), la app avisa y lo permite.
 
@@ -53,7 +54,7 @@ La fecha y el horario son solo una **ubicación en el calendario**: indican cuá
 - **Toda unidad y toda secuencia incluye al menos una clase.** No existen unidades ni secuencias sin fecha.
 - Una **clase vacía** es la que no tiene nada redactado (los cuatro textos en blanco) y no está asignada a ninguna unidad ni secuencia. No es lo mismo que una clase "libre de secuencia" (3.11), que puede tener texto.
 - Una **unidad nueva** va a la primera clase vacía posterior a la última clase planificada del curso. Ejemplo: la unidad 1 queda el 3 de febrero y la unidad 2 el 10. Si se suma una segunda clase a la unidad 1 (el 10 de febrero), la unidad 2 pasa al 17, con vista previa y confirmación.
-- Si una **secuencia se queda sin clases**, pasa a incluir la primera clase, desde la primera fecha de su unidad, que no tenga nada redactado, no pertenezca a otra secuencia y sea de esa unidad o de ninguna (en ese caso pasa a integrar la unidad).
+- Si una **secuencia se queda sin clases**, pasa a incluir la primera clase de **su misma unidad** que no tenga nada redactado y no pertenezca a otra secuencia.
 - Si no existe tal clase, la app ofrece sumar una clase a la unidad (con vista previa) o eliminar la secuencia vacía.
 - Una **unidad que se queda sin clases** sigue la regla de la creación.
 - Si no hay ninguna clase disponible, la app avisa, igual que en "correr".
@@ -70,12 +71,15 @@ La fecha y el horario son solo una **ubicación en el calendario**: indican cuá
 - **Número de posición guardado en cada clase:** descartada. Genera dos verdades (posición y fecha) que pueden contradecirse.
 - **Toda unidad nace con una secuencia inicial oculta:** descartada. Obliga a usar secuencias a quien no las usa.
 - **Unidades y secuencias vacías al final, por orden de creación:** descartada a favor de la regla "al menos una clase".
+- **Que una secuencia vacía pueda tomar una clase que no pertenece a ninguna unidad:** descartada. Estiraría la unidad por encima de las que le siguen y la secuencia dejaría de quedar cerca.
 - **Número de orden guardado en unidades y secuencias:** descartada por ahora. Si más adelante hiciera falta, agregarlo es un cambio chico mediante una migración.
 
-## Pendiente de confirmar y seguimiento
+## Resuelto al aprobarla (2026-11-26)
 
-- **Confirmar la definición de "clase vacía" para las secuencias** (en particular, que la clase elegida no pertenezca a otra secuencia).
-- **Intercambiar dos clases** no figura en `PROJECT.md` 3.11. Decidir si entra al MVP.
-- Actualizar `PROJECT.md` (3.3, 3.4, 3.10 y 3.11) con estas precisiones y unificar el uso de la palabra "libre", que hoy significa dos cosas.
+- Definición de la clase que toma una secuencia vacía: la primera de su misma unidad sin nada redactado y sin otra secuencia.
+- Alcance en el MVP de las operaciones de orden (ver Operaciones).
+
+## Seguimiento
+
 - Escribir la regla de consistencia entre unidad y secuencia en `DATABASE.md`.
 - Detalles de interfaz para el diseño de pantallas: aviso de secuencias entrelazadas, vista previa de desplazamientos, aviso al pasar una clase a otra unidad, y el motivo de una suspensión anotado en observaciones (si se escribe antes de correr, viaja con el texto).

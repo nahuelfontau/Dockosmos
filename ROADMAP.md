@@ -1,6 +1,6 @@
 # Roadmap
 
-**Última actualización:** 2026-11-26 · **Etapa actual:** MVP delimitado; stack aprobado (`DECISIONS/0015`); orden pedagógico definido (`DECISIONS/0017`, propuesta); sigue el diseño del modelo de datos (tablas) y de la arquitectura
+**Última actualización:** 2026-11-26 · **Etapa actual:** MVP delimitado; stack aprobado (`DECISIONS/0015`); orden pedagógico definido (`DECISIONS/0017`, aprobada); sigue el diseño del modelo de datos (tablas) y de la arquitectura
 
 ## Prioridades
 
@@ -8,14 +8,14 @@
 - [x] 2. Definir navegación y experiencia general (inicio en calendario semanal + lista jerárquica institución → curso).
 - [x] 3. Delimitar el MVP (ver `PROJECT.md`, 3.12, y `DECISIONS/0011`).
 - [x] 4. Investigar y validar el stack (local-first/offline, SQLite, PDF/DOCX, compatibilidad Expo/Web, sincronización futura). Completado: prueba de concepto (`DECISIONS/0014`) y aprobación (`DECISIONS/0015`).
-- [ ] 5. Diseñar arquitectura y modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`). Avance: modelo conceptual y orden pedagógico definidos (`DECISIONS/0017`, propuesta); falta el modelo lógico (tablas), el acceso a la base y el cifrado.
+- [ ] 5. Diseñar arquitectura y modelo de datos (`ARCHITECTURE.md`, `DATABASE.md`). Avance: modelo conceptual y orden pedagógico definidos (`DECISIONS/0017`, aprobada); falta el modelo lógico (tablas), el acceso a la base y el cifrado.
 - [ ] 6. Preparar el roadmap de implementación.
 
 ## Próxima sesión
 
 1. ~~Guardar el código de la prueba de concepto en el repositorio.~~ Hecho el 2026-11-25 en prototypes/poc-stack.
 2. ~~Definir el modelo conceptual y el orden pedagógico.~~ Hecho el 2026-11-26 (`DECISIONS/0017`).
-3. Aprobar el 0017: releerlo con calma, confirmar la definición de "clase vacía" para las secuencias y decidir si "intercambiar dos clases" y "mover secuencias o unidades enteras" entran al MVP.
+3. ~~Aprobar el 0017: confirmar la definición de "clase vacía" para las secuencias y decidir qué operaciones de orden entran al MVP.~~ Hecho el 2026-11-26: "intercambiar dos clases" y el desplazamiento al sumar clases entran al MVP; mover secuencias o unidades enteras queda para después.
 4. Diseñar el modelo lógico de la base de datos (tablas, columnas y reglas de consistencia; `DATABASE.md`) y la arquitectura (`ARCHITECTURE.md`). Incluye decidir cómo se accede a la base de datos, analizar el cifrado y revisar la limitación de datos sin respaldo (`DECISIONS/0016`).
 5. Empezar con lo básico de TypeScript (el responsable ve cursos en paralelo).
 6. Escribir un README.md propio (el actual es el inicial de GitHub).
@@ -40,6 +40,7 @@
 - Nómina compartida entre cursos.
 - Estado "suspendida" para las clases (por ahora el docente corre lo planificado de forma manual).
 - Correr lo planificado más de una clase por vez.
+- Mover una secuencia o una unidad entera a un lugar cualquiera del calendario.
 - Carga de la nómina pegando una lista de nombres.
 - Calendario de feriados y borrado múltiple de clases.
 - Sugerencias con IA.
